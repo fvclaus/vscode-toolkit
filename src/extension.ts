@@ -2,6 +2,8 @@ import * as vscode from "vscode";
 
 let inRegionMode = false;
 
+// TODO Support editor.emmet.action.matchTag inside JSX code but not when in Typescript code in JSX file
+
 const isSelectionBiggerThan1 = (selection: vscode.Selection | undefined) => {
   if (selection === undefined) {
     return false
