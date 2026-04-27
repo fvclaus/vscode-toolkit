@@ -2,16 +2,21 @@
 {
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "Launch Extension",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      // Avoid problems with other extension when running on the extension development host
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}", "--profile", "only emacs-region-macos"],
-      "outFiles": ["${workspaceRoot}/out/**/*.js"],
-      // Extension host does not automatically pick up changes, you need to use 'Developer: Reload Window'
-      "preLaunchTask": "npm: watch"
+      {
+        "name": "Extension",
+        "type": "extensionHost",
+        "request": "launch",
+        "runtimeExecutable": "${execPath}",
+        "args": [
+            "--extensionDevelopmentPath=${workspaceFolder}",
+            // Await interference with other plugins
+            "--profile-temp",
+        ],
+        "outFiles": [
+            "${workspaceFolder}/out/**/*.js"
+        ],
+        // TODO npm watch doesn't work
+        "preLaunchTask": "npm: compile"
     },
   ]
 }

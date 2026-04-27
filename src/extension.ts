@@ -20,9 +20,34 @@ export async function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand("emacs.closeAllPanels", async () => {
-      await vscode.commands.executeCommand("workbench.action.closePanel");
-      await vscode.commands.executeCommand("workbench.action.closeSidebar");
-      await vscode.commands.executeCommand("workbench.action.closeAuxiliaryBar");
+      //just closing the sidebar will not retain the width when re-openened
+        await vscode.commands.executeCommand("workbench.action.toggleSidebarPosition")
+        await vscode.commands.executeCommand("workbench.action.positionPanelRight")
+        await vscode.commands.executeCommand("workbench.action.closeSidebar")
+        const configuration = vscode.workspace.getConfiguration("workbench");
+        const value = configuration.get("sideBar.location");
+        await configuration.update("sideBar.location", "left", vscode.ConfigurationTarget.Global);
+        await vscode.commands.executeCommand("terminal.focus")
+    }),
+  )
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("toolkit.panelRight", async () => {
+      //just closing the sidebar will not retain the width when re-openened
+      const configuration = vscode.workspace.getConfiguration("workbench");
+      await configuration.update("sideBar.location", "left", vscode.ConfigurationTarget.Global);
+        await vscode.commands.executeCommand("workbench.action.positionPanelRight")
+        await vscode.commands.executeCommand("workbench.action.closeSidebar")
+        await vscode.commands.executeCommand("terminal.focus")
+    }),
+  )
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("toolkit.panelBottom", async () => {
+      await vscode.commands.executeCommand("workbench.action.positionPanelBottom");
+      const configuration = vscode.workspace.getConfiguration("workbench");
+      await configuration.update("sideBar.location", "right", vscode.ConfigurationTarget.Global);
+      await vscode.commands.executeCommand("workbench.action.toggleSidebarVisibility");
       await vscode.commands.executeCommand("workbench.action.focusActiveEditorGroup");
     }),
   )

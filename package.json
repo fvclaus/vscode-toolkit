@@ -2,7 +2,7 @@
   "name": "toolkit",
   "displayName": "Toolkit",
   "description": "Collection of extra commands for navigation, debugging etc.",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "publisher": "fvclaus",
   "engines": {
     "vscode": "^1.96.0"
@@ -35,6 +35,14 @@
       {
         "command": "emacs.copyAll",
         "title": "Copy all"
+      },
+      {
+        "command": "toolkit.panelRight",
+        "title": "Move panel to right and hide sidebar"
+      },
+      {
+        "command": "toolkit.panelBottom",
+        "title": "Move panel to bottom and show sidebar"
       }
     ],
     "keybindings": [
